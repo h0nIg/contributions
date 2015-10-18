@@ -6,8 +6,9 @@ $begin    = new DateTime('2012-11-09');
 $end      = new DateTime();
 $interval = DateInterval::createFromDateString('1 day');
 $days     = new DatePeriod($begin, $interval, $end);
+$reversedays = array_reverse(iterator_to_array($days));
 
-foreach ( $days as $day ) {
+foreach ( $reversedays as $day ) {
 	$date = date_format($day, 'Y-m-d');
 
 	$dom = new DomDocument;
@@ -31,4 +32,7 @@ foreach ( $days as $day ) {
 			}
 		}
 	}
+
+	// 2,5 sec
+	usleep(2500000);
 }
