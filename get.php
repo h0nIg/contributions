@@ -8,6 +8,7 @@ $interval = DateInterval::createFromDateString('1 day');
 $days     = new DatePeriod($begin, $interval, $end);
 $reversedays = array_reverse(iterator_to_array($days));
 
+echo "<table>";
 foreach ( $reversedays as $day ) {
 	$date = date_format($day, 'Y-m-d');
 
@@ -16,6 +17,7 @@ foreach ( $reversedays as $day ) {
 	$xpath = new DomXPath($dom);
 	$nodes = $xpath->query("//div[@class='contribution-activity-listing']");
 
+	
 	foreach ($nodes as $node) {
 		if (!strstr($node->nodeValue, "has no activity during this period")) {
 
@@ -24,11 +26,28 @@ foreach ( $reversedays as $day ) {
 
 			$xpath = new DomXPath($dom);
 			$contributions = $xpath->query("//a[@class='title']");
-			//$contributions = $xpath->query("//a[not(contains(@class, 'title'))]");
 
 			foreach ($contributions as $contribution) {
-				$contributionValue = $dom->saveXML($contribution);
-				echo $date." ".str_replace("\n", "", $contributionValue)."<br />\n";
+				$html = $dom->saveXML($contribution);
+				$html = str_replace("\n", "", $html);
+
+				# Pushed XXX commits to XXX
+				if (strstr($html, ' Pushed ')) {
+					continue;
+				}
+
+				$values = null;
+				preg_match("|<a.+href=\"/(([^/]+/[^/]+)/[^\"]+)\"[^>]+>([^<]+)</a>|", $html, $values);
+
+				echo "<tr><td>";
+				echo $date;
+				echo "</td><td>";
+				echo "<a href=\"/".$values[2]."\">".$values[2]."</a>";
+				echo "</td><td>";
+				echo "<a href=\"/".$values[1]."\">".$values[3]."</a>";
+				echo "</td></tr>";
+
+				echo "\n";
 			}
 		}
 	}
@@ -36,3 +55,4 @@ foreach ( $reversedays as $day ) {
 	// 2,5 sec
 	usleep(2500000);
 }
+echo "</table>";
