@@ -37,12 +37,12 @@ foreach ( $reversedays as $day ) {
 				}
 
 				$values = null;
-				preg_match("|<a.+href=\"/(([^/]+)/([^/]+)/[^\"]+)\"[^>]+>([^<]+)</a>|", $html, $values);
+				preg_match("|<a.+href=\"/(([^/]+/([^/]+))/[^\"]+)\"[^>]+>([^<]+)</a>|", $html, $values);
 
 				echo "<tr><td>";
 				echo $date;
 				echo "</td><td>";
-				echo "<a href=\"/".$values[2]."/".$values[3]."\">".$values[3]."</a>";
+				echo "<a href=\"/".$values[2]."\">".$values[3]."</a>";
 				echo "</td><td>";
 				echo "<a href=\"/".$values[1]."\">".$values[4]."</a>";
 				echo "</td></tr>";
