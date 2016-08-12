@@ -52,9 +52,9 @@ foreach ($orderedFiles as $file) {
                                 $finding .= "<tr><td>";
                                 $finding .= $date;
                                 $finding .= "</td><td>";
-                                $finding .= "<a href=\"/".$values[2]."\">".$values[2]."</a>";
+                                $finding .= "<a href=\"https://github.com/".$values[2]."\">".$values[2]."</a>";
                                 $finding .= "</td><td>";
-                                $finding .= "<a href=\"/".$values[1]."\">".$values[4]."</a>";
+                                $finding .= "<a href=\"https://github.com/".$values[1]."\">".$values[4]."</a>";
                                 $finding .= "</td></tr>";
 
                                 $finding .= "\n";
