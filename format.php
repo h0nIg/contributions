@@ -87,6 +87,20 @@ foreach ($orderedFiles as $file) {
 <br /><br />
 
 <table>
+<thead>
+<tr><td colspan="3" align="center"><strong>other</strong></td></tr>
+<tr><td><strong>date</strong></td><td><strong>repository</strong></td><td><strong>description</strong></td></tr>
+</thead><tbody>
+<?php
+
+foreach ($miscFindings as $request) {
+        echo $request."\n";
+}
+
+?>
+</tbody>
+</table>
+<table>
 <?php
 
 foreach ($groupFindings as $name => $finding) {
@@ -109,21 +123,6 @@ foreach ($groupFindings as $name => $finding) {
 }
 
 ?>
-</table>
-
-<table>
-<thead>
-<tr><td colspan="3" align="center"><strong>other</strong></td></tr>
-<tr><td><strong>date</strong></td><td><strong>repository</strong></td><td><strong>description</strong></td></tr>
-</thead><tbody>
-<?php
-
-foreach ($miscFindings as $request) {
-        echo $request."\n";
-}
-
-?>
-</tbody>
 </table>
 <br />
 
