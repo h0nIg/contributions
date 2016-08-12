@@ -84,7 +84,7 @@ foreach ($orderedFiles as $file) {
 <li>github activities are displayed only for the last year</li>
 <li>grouped by topic</li>
 </ul>
-<br /><br /><br />
+<br /><br />
 
 <table>
 <?php
