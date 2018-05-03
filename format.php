@@ -25,25 +25,26 @@ foreach ($orderedFiles as $file) {
         $dom = new DomDocument;
         $dom->loadHTMLFile("./output/".$date);
         $xpath = new DomXPath($dom);
-        $nodes = $xpath->query("//div[@class='contribution-activity-listing']");
+        $nodes = $xpath->query("//div[@id='js-contribution-activity']");
 
         foreach ($nodes as $node) {
-                if (!strstr($node->nodeValue, "has no activity during this period")) {
+                if (!strstr($node->nodeValue, "had no activity during this period")) {
 
                         $xmlvalue = $dom->saveXML($node);
                         $dom->loadXML($xmlvalue);
 
                         $xpath = new DomXPath($dom);
-                        $contributions = $xpath->query("//a[@class='title']");
+                        $contributions = $xpath->query("//a");
 
                         foreach ($contributions as $contribution) {
                                 $html = $dom->saveXML($contribution);
                                 $html = str_replace("\n", "", $html);
 
-                                # Pushed XXX commits to XXX
-                                if (strstr($html, " Pushed ")) {
+                                # we need the links
+                                if (!strstr($html, "/issues/") && !strstr($html, "/pull/")) {
                                         continue;
                                 }
+
 
                                 $values = null;
                                 preg_match("|<a.+href=\"/(([^/]+/([^/]+))/[^\"]+)\"[^>]+>([^<]+)</a>|", $html, $values);
